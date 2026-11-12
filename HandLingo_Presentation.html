@@ -1,0 +1,699 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>HandLingo - Presentation Deck</title>
+  <style>
+    :root {
+      --bg-dark: #0b0f19;
+      --card-bg: rgba(255, 255, 255, 0.05);
+      --card-border: rgba(255, 255, 255, 0.12);
+      --accent-cyan: #06b6d4;
+      --accent-purple: #8b5cf6;
+      --accent-emerald: #10b981;
+      --accent-amber: #f59e0b;
+      --text-main: #f8fafc;
+      --text-muted: #94a3b8;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    }
+
+    body {
+      background: var(--bg-dark);
+      color: var(--text-main);
+      overflow: hidden;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    /* Background glow effect */
+    .glow-bg {
+      position: absolute;
+      top: 20%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 650px;
+      height: 650px;
+      background: radial-gradient(circle, rgba(139, 92, 246, 0.18) 0%, rgba(6, 182, 212, 0.1) 40%, transparent 70%);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* Top Bar */
+    header {
+      position: relative;
+      z-index: 10;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 18px 48px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      backdrop-filter: blur(8px);
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-size: 1.25rem;
+      font-weight: 700;
+      letter-spacing: -0.5px;
+    }
+
+    .brand .logo-badge {
+      background: linear-gradient(135deg, var(--accent-purple), var(--accent-cyan));
+      padding: 6px 12px;
+      border-radius: 8px;
+      font-size: 0.9rem;
+      font-weight: 800;
+      color: #fff;
+    }
+
+    .slide-counter {
+      color: var(--text-muted);
+      font-size: 0.95rem;
+      font-weight: 600;
+    }
+
+    /* Slide Container */
+    main.deck-container {
+      position: relative;
+      z-index: 5;
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 24px 64px;
+    }
+
+    .slide {
+      display: none;
+      width: 100%;
+      max-width: 1180px;
+      height: 100%;
+      max-height: 620px;
+      animation: fadeIn 0.4s ease-out;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .slide.active {
+      display: flex;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(12px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Typography */
+    .tag {
+      display: inline-block;
+      text-transform: uppercase;
+      font-size: 0.8rem;
+      font-weight: 700;
+      letter-spacing: 1.5px;
+      color: var(--accent-cyan);
+      margin-bottom: 12px;
+    }
+
+    h1.title {
+      font-size: 3.2rem;
+      font-weight: 800;
+      line-height: 1.15;
+      margin-bottom: 16px;
+      background: linear-gradient(135deg, #ffffff 40%, #94a3b8 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    h2.slide-heading {
+      font-size: 2.2rem;
+      font-weight: 700;
+      margin-bottom: 24px;
+      letter-spacing: -0.5px;
+    }
+
+    .lead-text {
+      font-size: 1.25rem;
+      color: var(--text-muted);
+      line-height: 1.6;
+      max-width: 850px;
+      margin-bottom: 32px;
+    }
+
+    /* Grid Layouts */
+    .grid-2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+      width: 100%;
+    }
+
+    .grid-3 {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+      width: 100%;
+    }
+
+    .grid-4 {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 18px;
+      width: 100%;
+    }
+
+    /* Card styling */
+    .card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 16px;
+      padding: 24px;
+      backdrop-filter: blur(12px);
+      transition: transform 0.2s ease, border-color 0.2s ease;
+    }
+
+    .card:hover {
+      transform: translateY(-2px);
+      border-color: rgba(255, 255, 255, 0.25);
+    }
+
+    .card h3 {
+      font-size: 1.2rem;
+      font-weight: 700;
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      color: #fff;
+    }
+
+    .card p, .card ul {
+      color: var(--text-muted);
+      font-size: 0.95rem;
+      line-height: 1.6;
+    }
+
+    .card ul {
+      list-style-position: inside;
+      margin-top: 8px;
+    }
+
+    .card ul li {
+      margin-bottom: 6px;
+    }
+
+    .badge-icon {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 34px;
+      height: 34px;
+      border-radius: 8px;
+      font-size: 1.1rem;
+      background: rgba(255, 255, 255, 0.1);
+    }
+
+    /* Architecture / Flow boxes */
+    .arch-flow {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      margin: 20px 0;
+    }
+
+    .flow-step {
+      flex: 1;
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      padding: 18px 14px;
+      border-radius: 12px;
+      text-align: center;
+    }
+
+    .flow-step .num {
+      font-size: 0.8rem;
+      font-weight: 800;
+      color: var(--accent-cyan);
+      margin-bottom: 4px;
+    }
+
+    .flow-step .title {
+      font-size: 1rem;
+      font-weight: 700;
+      color: #fff;
+      margin-bottom: 6px;
+    }
+
+    .flow-step .desc {
+      font-size: 0.82rem;
+      color: var(--text-muted);
+    }
+
+    .arrow {
+      color: var(--accent-purple);
+      font-size: 1.4rem;
+      font-weight: bold;
+    }
+
+    /* Bottom Navigation Controls */
+    footer {
+      position: relative;
+      z-index: 10;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 16px 48px;
+      border-top: 1px solid rgba(255, 255, 255, 0.08);
+      backdrop-filter: blur(8px);
+    }
+
+    .nav-hints {
+      color: var(--text-muted);
+      font-size: 0.85rem;
+    }
+
+    .nav-buttons {
+      display: flex;
+      gap: 12px;
+    }
+
+    button.btn {
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      color: #fff;
+      padding: 8px 18px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: 600;
+      font-size: 0.9rem;
+      transition: all 0.2s;
+    }
+
+    button.btn:hover {
+      background: rgba(255, 255, 255, 0.16);
+      border-color: #fff;
+    }
+
+    button.btn-primary {
+      background: linear-gradient(135deg, var(--accent-purple), var(--accent-cyan));
+      border: none;
+    }
+
+    button.btn-primary:hover {
+      opacity: 0.9;
+    }
+
+    /* Print styling */
+    @media print {
+      body {
+        overflow: visible;
+        height: auto;
+        background: #ffffff;
+        color: #000000;
+      }
+      .glow-bg, header, footer {
+        display: none !important;
+      }
+      .slide {
+        display: flex !important;
+        page-break-after: always;
+        height: 100vh;
+        max-height: 100vh;
+        padding: 40px;
+        box-sizing: border-box;
+      }
+      .card {
+        background: #f8fafc;
+        border: 1px solid #cbd5e1;
+        color: #000;
+      }
+      .card h3, h2.slide-heading, h1.title {
+        color: #0f172a !important;
+        -webkit-text-fill-color: initial !important;
+      }
+      .card p, .card ul, .lead-text, .flow-step .desc {
+        color: #475569 !important;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="glow-bg"></div>
+
+  <!-- Header -->
+  <header>
+    <div class="brand">
+      <span class="logo-badge">HANDLINGO</span>
+      <span>AI Gesture Communication Platform</span>
+    </div>
+    <div class="slide-counter" id="slide-num">Slide 1 of 10</div>
+  </header>
+
+  <!-- Slide Deck Container -->
+  <main class="deck-container">
+
+    <!-- SLIDE 1: Title & Introduction -->
+    <section class="slide active">
+      <span class="tag">AI & Computer Vision Project</span>
+      <h1 class="title">HANDLINGO</h1>
+      <p class="lead-text">
+        An AI-powered hand gesture communication and interaction platform designed to make digital communication accessible, intuitive, and completely touchless.
+      </p>
+      <div class="grid-3">
+        <div class="card">
+          <h3><span class="badge-icon">🤟</span> Sign Translation</h3>
+          <p>Converts alphabet & custom sign gestures into synthesized text & spoken audio in real-time.</p>
+        </div>
+        <div class="card">
+          <h3><span class="badge-icon">✨</span> Touchless HCI</h3>
+          <p>Natural air gestures for volume tuning, air drawing, slides presentation, and cursor control.</p>
+        </div>
+        <div class="card">
+          <h3><span class="badge-icon">🌐</span> Modern Architecture</h3>
+          <p>Browser-ready Flask application powered by MediaPipe 3D Landmark Tracking & OpenCV.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- SLIDE 2: Problem Statement -->
+    <section class="slide">
+      <span class="tag">Problem Statement</span>
+      <h2 class="slide-heading">The Communication & Interaction Barrier</h2>
+      <div class="grid-2">
+        <div class="card">
+          <h3><span class="badge-icon">🔇</span> Sign Language Inaccessibility</h3>
+          <p>Over 70 million deaf individuals globally use sign language as their primary mode of communication. The general public lacks fluency, creating everyday barriers in workplaces, hospitals, and public services.</p>
+          <ul style="margin-top:12px;">
+            <li>High reliance on human interpreters.</li>
+            <li>Lack of accessible real-time translation tools.</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3><span class="badge-icon">🖱️</span> Hardware Limitations & Hygiene</h3>
+          <p>Traditional Human-Computer Interaction (HCI) strictly relies on physical contact (keyboards, mice, touchscreen displays). In sterile settings (surgical theaters) or industrial plants, touchless control is essential.</p>
+          <ul style="margin-top:12px;">
+            <li>Physical peripherals are prone to contamination.</li>
+            <li>Inconvenient during presentations or remote workflows.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- SLIDE 3: Objectives -->
+    <section class="slide">
+      <span class="tag">Project Goals</span>
+      <h2 class="slide-heading">Objectives of HandLingo</h2>
+      <div class="grid-3">
+        <div class="card">
+          <h3><span class="badge-icon">1</span> Real-Time Translation</h3>
+          <p>Accurately capture 21 hand landmarks using a standard RGB camera and translate static & dynamic signs (A, B, C, D...) into sentences.</p>
+        </div>
+        <div class="card">
+          <h3><span class="badge-icon">2</span> Speech Synthesis (TTS)</h3>
+          <p>Bridge the acoustic gap by converting assembled gesture words directly into clear audio speech for non-signers.</p>
+        </div>
+        <div class="card">
+          <h3><span class="badge-icon">3</span> Touchless OS Interaction</h3>
+          <p>Provide zero-contact computer control: intuitive air-mouse, presentation slide switching, and system audio adjustment.</p>
+        </div>
+        <div class="card">
+          <h3><span class="badge-icon">4</span> Digital Air Canvas</h3>
+          <p>Allow touch-free finger air drawing and sketching for classrooms, meetings, and creative expressions.</p>
+        </div>
+        <div class="card">
+          <h3><span class="badge-icon">5</span> Zero Cost & Accessible</h3>
+          <p>Run on ubiquitous webcams without requiring expensive sensory gloves, depth sensors, or LiDAR hardware.</p>
+        </div>
+        <div class="card">
+          <h3><span class="badge-icon">6</span> Cross-Platform Growth</h3>
+          <p>A web-first platform architected for seamless evolution into mobile and edge-computing applications.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- SLIDE 4: Proposed Solution -->
+    <section class="slide">
+      <span class="tag">Proposed Solution</span>
+      <h2 class="slide-heading">Unified Gesture AI Platform</h2>
+      <div class="grid-2">
+        <div class="card">
+          <h3><span class="badge-icon">💡</span> Core Innovation</h3>
+          <p>HandLingo eliminates sensory gloves by leveraging single-camera Computer Vision and spatial Machine Learning algorithms.</p>
+          <ul style="margin-top: 12px;">
+            <li><strong>Two-Way Communication:</strong> Signs translated to visual text and spoken speech instantly.</li>
+            <li><strong>Multi-Modal Controller:</strong> Seamlessly switch between Sign Translator, Presentation Mode, Volume Slider, and Air Drawing.</li>
+            <li><strong>No Calibration Overhead:</strong> Instantaneous hand detection upon entering camera FOV.</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3><span class="badge-icon">🚀</span> Key Differentiators</h3>
+          <ul style="margin-top: 8px;">
+            <li><strong>Webcam-Only:</strong> Zero specialized sensor requirement.</li>
+            <li><strong>Sub-30ms Latency:</strong> Optimized Euclidean coordinate tracking ensures real-time feedback.</li>
+            <li><strong>Process Isolation:</strong> Modular Python feature threads prevent webcam contention and memory bottlenecks.</li>
+            <li><strong>Intuitive UI:</strong> Interactive dashboard with one-click toggles and live status badges.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- SLIDE 5: System Architecture -->
+    <section class="slide">
+      <span class="tag">System Design</span>
+      <h2 class="slide-heading">System Architecture & Pipeline</h2>
+      <div class="arch-flow">
+        <div class="flow-step">
+          <div class="num">STAGE 01</div>
+          <div class="title">Video Input</div>
+          <div class="desc">OpenCV captures live 30 FPS webcam stream</div>
+        </div>
+        <div class="arrow">→</div>
+        <div class="flow-step">
+          <div class="num">STAGE 02</div>
+          <div class="title">Landmark Detection</div>
+          <div class="desc">MediaPipe Hands maps 21 3D coordinates (X, Y, Z)</div>
+        </div>
+        <div class="arrow">→</div>
+        <div class="flow-step">
+          <div class="num">STAGE 03</div>
+          <div class="title">Gesture Engine</div>
+          <div class="desc">Vector math, angle computation & state classification</div>
+        </div>
+        <div class="arrow">→</div>
+        <div class="flow-step">
+          <div class="num">STAGE 04</div>
+          <div class="title">Action Execution</div>
+          <div class="desc">TTS Audio, OS Audio (PyCaw), PyAutoGUI & Canvas</div>
+        </div>
+      </div>
+      <div class="grid-2" style="margin-top: 16px;">
+        <div class="card">
+          <h3>Frontend & Controller Layer</h3>
+          <p>Flask web application serving responsive controls and SSL-secured camera feeds with process-lifecycle management.</p>
+        </div>
+        <div class="card">
+          <h3>Hardware & OS Automation Layer</h3>
+          <p>Direct hook into Windows Core Audio API, virtual keystrokes, and virtual cursor positioning.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- SLIDE 6: Technologies Used -->
+    <section class="slide">
+      <span class="tag">Tech Stack</span>
+      <h2 class="slide-heading">Technologies & Frameworks</h2>
+      <div class="grid-4">
+        <div class="card">
+          <h3><span class="badge-icon">🐍</span> Backend</h3>
+          <p><strong>Python & Flask</strong><br>Handles routing, async feature orchestration, and sub-process lifecycle control.</p>
+        </div>
+        <div class="card">
+          <h3><span class="badge-icon">👁️</span> Vision</h3>
+          <p><strong>OpenCV & MediaPipe</strong><br>Real-time frame ingestion, color space conversion, and 21-joint skeleton mapping.</p>
+        </div>
+        <div class="card">
+          <h3><span class="badge-icon">⚙️</span> Automation</h3>
+          <p><strong>PyCaw & PyAutoGUI</strong><br>Native Windows endpoint volume manipulation and simulated keyboard events.</p>
+        </div>
+        <div class="card">
+          <h3><span class="badge-icon">🌐</span> Web & Audio</h3>
+          <p><strong>HTML5, CSS3, JS & TTS</strong><br>Clean responsive UI with Web Speech / pyttsx3 voice generation.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- SLIDE 7: Working Methodology -->
+    <section class="slide">
+      <span class="tag">Workflow</span>
+      <h2 class="slide-heading">Working Methodology</h2>
+      <div class="grid-3">
+        <div class="card">
+          <h3>1. Landmark Extraction</h3>
+          <p>Frames converted from BGR to RGB. MediaPipe extracts spatial coordinates of thumb tip (ID 4), index tip (ID 8), and wrist (ID 0).</p>
+        </div>
+        <div class="card">
+          <h3>2. Spatial Geometry Analysis</h3>
+          <p>Euclidean distance formula calculates finger proximity:
+          <br><code style="color:var(--accent-cyan); display:block; margin-top:6px;">d = √((x₂ - x₁)² + (y₂ - y₁)²)</code>
+          Detects pinch gestures, finger fold states, and hand angles.</p>
+        </div>
+        <div class="card">
+          <h3>3. Action Dispatching</h3>
+          <p>Mapped commands trigger designated modules:
+          <br>• Distance ∝ Volume %
+          <br>• Index position → Canvas draw
+          <br>• Swipe left/right → Slide change
+          <br>• Alphabet sign → Text queue</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- SLIDE 8: Major Features & Modules -->
+    <section class="slide">
+      <span class="tag">System Capabilities</span>
+      <h2 class="slide-heading">Major Features & Modules</h2>
+      <div class="grid-2">
+        <div class="card">
+          <h3><span class="badge-icon">🗣️</span> Sign Language to Speech</h3>
+          <p>Real-time translation of finger spelling (A-Z) and standard signs. Assembles letters into words, words into sentences, and synthesizes clear vocal speech.</p>
+        </div>
+        <div class="card">
+          <h3><span class="badge-icon">🔊</span> Smart Volume Controller</h3>
+          <p>Thumb-to-index pinch distance dynamically scales master system volume from 0% to 100% with real-time HUD bar visualization.</p>
+        </div>
+        <div class="card">
+          <h3><span class="badge-icon">🎨</span> Virtual Air Drawing</h3>
+          <p>Finger tip tracking acts as a virtual stylus. Supports multi-color selection, variable brush strokes, and air-swipe canvas clearing.</p>
+        </div>
+        <div class="card">
+          <h3><span class="badge-icon">📊</span> Presentation & Media Control</h3>
+          <p>Hands-free navigation for slide decks (Next/Previous) and multimedia playback (Play, Pause, Skip) using directional hand sweeps.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- SLIDE 9: Applications & Advantages -->
+    <section class="slide">
+      <span class="tag">Impact & Reach</span>
+      <h2 class="slide-heading">Applications, Advantages & Future Scope</h2>
+      <div class="grid-3">
+        <div class="card">
+          <h3>Applications</h3>
+          <ul style="margin-top:6px;">
+            <li>Assisted Living & Deaf community inclusion.</li>
+            <li>Sterile medical surgical suites.</li>
+            <li>Smart classrooms & conference presentations.</li>
+            <li>Touchless public kiosks & ATMs.</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3>Key Advantages</h3>
+          <ul style="margin-top:6px;">
+            <li><strong>100% Software-Driven:</strong> Zero expensive hardware needed.</li>
+            <li><strong>Low Latency:</strong> Immediate response on standard consumer PCs.</li>
+            <li><strong>Hygienic & Touchless:</strong> Eliminates surface pathogen transmission.</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3>Future Scope</h3>
+          <ul style="margin-top:6px;">
+            <li>Continuous dynamic sentence translation (Deep Learning LSTMs / Transformers).</li>
+            <li>Cross-platform Flutter / React Native mobile apps.</li>
+            <li>Multi-language speech translation (English, Spanish, Hindi, etc.).</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- SLIDE 10: Conclusion -->
+    <section class="slide">
+      <span class="tag">Summary</span>
+      <h2 class="slide-heading">Conclusion & Future Enhancements</h2>
+      <div class="grid-2">
+        <div class="card">
+          <h3>Project Summary</h3>
+          <p><strong>HandLingo</strong> proves that computer vision and machine learning can dismantle communication barriers and transform everyday digital interactions without requiring proprietary hardware.</p>
+          <p style="margin-top:12px;">By uniting <strong>Sign Language Translation</strong> with intuitive <strong>Touchless Device Control</strong>, it bridges accessibility with next-generation human-computer interaction.</p>
+        </div>
+        <div class="card">
+          <h3>Roadmap Ahead</h3>
+          <ul style="margin-top: 6px;">
+            <li><strong>Cloud Model Sync:</strong> Edge-optimized lightweight ML deployment.</li>
+            <li><strong>Extended Vocabulary:</strong> Expand from finger-spelling to full contextual sign grammar.</li>
+            <li><strong>AR/VR Integration:</strong> Spatial computing support for Meta Quest and Apple Vision platforms.</li>
+          </ul>
+          <div style="margin-top:20px; text-align:center;">
+            <span style="font-weight:700; color:var(--accent-cyan); font-size:1.1rem;">Thank You! Q&A Session</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Footer Navigation -->
+  <footer>
+    <div class="nav-hints">
+      Press <kbd style="background:rgba(255,255,255,0.1); padding:2px 6px; border-radius:4px;">←</kbd> / <kbd style="background:rgba(255,255,255,0.1); padding:2px 6px; border-radius:4px;">→</kbd> or Spacebar to navigate • Press <kbd style="background:rgba(255,255,255,0.1); padding:2px 6px; border-radius:4px;">F</kbd> for Fullscreen
+    </div>
+    <div class="nav-buttons">
+      <button class="btn" onclick="prevSlide()">‹ Previous</button>
+      <button class="btn" onclick="nextSlide()">Next ›</button>
+      <button class="btn btn-primary" onclick="window.print()">Export / Print PDF</button>
+    </div>
+  </footer>
+
+  <script>
+    const slides = document.querySelectorAll('.slide');
+    const counter = document.getElementById('slide-num');
+    let currentIndex = 0;
+
+    function updateSlide(index) {
+      slides.forEach((s, i) => {
+        s.classList.toggle('active', i === index);
+      });
+      counter.textContent = `Slide ${index + 1} of ${slides.length}`;
+    }
+
+    function nextSlide() {
+      if (currentIndex < slides.length - 1) {
+        currentIndex++;
+        updateSlide(currentIndex);
+      }
+    }
+
+    function prevSlide() {
+      if (currentIndex > 0) {
+        currentIndex--;
+        updateSlide(currentIndex);
+      }
+    }
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowRight' || e.key === ' ') {
+        nextSlide();
+      } else if (e.key === 'ArrowLeft') {
+        prevSlide();
+      } else if (e.key === 'f' || e.key === 'F') {
+        if (!document.fullscreenElement) {
+          document.documentElement.requestFullscreen();
+        } else {
+          document.exitFullscreen();
+        }
+      }
+    });
+  </script>
+</body>
+</html>

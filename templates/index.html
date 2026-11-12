@@ -1,0 +1,1897 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>HandLingo | AI Sign Language Translator</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body>
+
+    <!-- ================= NAVBAR ================= -->
+
+    <header>
+
+        <div class="logo">
+            Hand<span>Lingo</span>
+        </div>
+
+        <nav>
+            <a href="#home">Home</a>
+            <a href="#translator">Translator</a>
+            <a href="#how-it-works">How It Works</a>
+            <a href="#" id="featuresBtn">Features</a>
+            <a href="#" id="aboutBtn">About</a>
+        </nav>
+
+        <div class="nav-actions">
+    <button id="themeToggle" class="theme-toggle" aria-label="Toggle theme">
+        <span class="theme-dot"></span>
+    </button>
+
+    <a href="#" class="nav-button">Try HandLingo</a>
+</div>
+
+    </header>
+
+
+    <!-- ================= HERO ================= -->
+
+    <section class="hero" id="home">
+
+        <div class="hero-content">
+
+            <div class="hero-badge">
+                <span class="status-dot"></span>
+                AI SIGN LANGUAGE TECHNOLOGY
+            </div>
+
+            <h1>
+                Communication
+                <br>
+                <span>Without Barriers.</span>
+            </h1>
+
+            <p>
+                HandLingo uses artificial intelligence and computer vision
+                to understand hand gestures and turn them into meaningful
+                text and speech.
+            </p>
+
+            <div class="hero-buttons">
+
+                <a href="#translator" class="primary-button">
+                    Start Translating
+                    <span>→</span>
+                </a>
+
+                <a href="#how-it-works" class="secondary-button">
+                    How It Works
+                </a>
+
+            </div>
+
+        </div>
+
+
+        <!-- HERO VISUAL -->
+
+        <div class="hero-visual">
+
+            <div class="glow"></div>
+
+            <div class="hero-card live-ai-detection">
+
+                <div class="card-top">
+
+                    <span class="live-dot"></span>
+
+                    <span>LIVE AI DETECTION</span>
+
+                    <span class="camera-small">●</span>
+
+                </div>
+
+                <div class="gesture-display">
+                    A
+                </div>
+
+                <div class="gesture-label">
+                    Gesture detected
+                </div>
+
+                <div class="confidence-bar">
+
+                    <div class="confidence-fill"></div>
+
+                </div>
+
+                <div class="confidence-text">
+                    AI Confidence <strong>96.8%</strong>
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- ================= FEATURE STRIP ================= -->
+
+    <section class="feature-strip">
+
+        <div>
+            <strong>AI Powered</strong>
+            <span>Gesture Recognition</span>
+        </div>
+
+        <div>
+            <strong>Real Time</strong>
+            <span>Instant Translation</span>
+        </div>
+
+        <div>
+            <strong>Voice Ready</strong>
+            <span>Text To Speech</span>
+        </div>
+
+        <div>
+            <strong>Accessible</strong>
+            <span>Designed For Everyone</span>
+        </div>
+
+    </section>
+
+
+    <!-- ================= TRANSLATOR ================= -->
+
+    <section class="translator-section" id="translator">
+
+        <div class="section-heading">
+
+            <div class="hero-badge">
+                <span class="status-dot"></span>
+                LIVE TRANSLATOR
+            </div>
+
+            <h2>
+                Turn your gestures
+                <span>into words.</span>
+            </h2>
+
+            <p>
+                Show a hand gesture to the camera and let HandLingo
+                recognize it using AI.
+            </p>
+
+        </div>
+
+
+        <section class="camera-section">
+
+            <!-- CAMERA -->
+
+            <div class="camera-box">
+
+                <video id="cameraFeed"
+                       autoplay
+                       playsinline>
+                </video>
+
+                <div id="cameraPlaceholder">
+
+                    <div class="camera-icon">
+                        📷
+                    </div>
+
+                    <h2>Camera</h2>
+
+                    <p>
+                        Open your camera to start sign detection
+                    </p>
+
+                </div>
+
+                <div class="camera-controls">
+
+                    <button id="startCamera">
+                        Open Camera
+                    </button>
+
+                    <button id="stopCamera">
+                        Stop Camera
+                    </button>
+
+                </div>
+
+            </div>
+
+
+            <!-- DETECTION -->
+
+            <div class="detection-box">
+
+                <h2>Detected Sign</h2>
+
+                <div id="detectedSign">
+                    —
+                </div>
+
+                <p id="confidence">
+                    Waiting for gesture...
+                </p>
+
+                <button id="addSign">
+                    Add to Sentence
+                </button>
+
+            </div>
+
+        </section>
+
+
+        <!-- SENTENCE -->
+
+        <section class="sentence-section">
+
+            <h2>Your Sentence</h2>
+
+            <p>
+                Build your sentence using recognized signs.
+            </p>
+
+            <div id="sentenceBox">
+                Start making your sentence...
+            </div>
+
+            <div class="controls">
+
+                <button id="clearSentence">
+                    Clear
+                </button>
+
+                <button id="speakSentence">
+                    🔊 Speak
+                </button>
+
+            </div>
+
+        </section>
+
+    </section>
+
+
+    <!-- ================= HOW IT WORKS ================= -->
+
+    <section class="how-section" id="how-it-works">
+
+        <div class="section-heading">
+
+            <div class="hero-badge">
+                HOW IT WORKS
+            </div>
+
+            <h2>
+                From gesture
+                <span>to communication.</span>
+            </h2>
+
+        </div>
+
+
+        <div class="steps">
+
+            <div class="step-card">
+
+                <span>01</span>
+
+                <h3>Show Your Gesture</h3>
+
+                <p>
+                    Position your hand in front of the camera
+                    and perform a sign.
+                </p>
+
+            </div>
+
+
+            <div class="step-card">
+
+                <span>02</span>
+
+                <h3>AI Recognizes It</h3>
+
+                <p>
+                    Our computer vision model analyzes your
+                    hand gesture and identifies the sign.
+                </p>
+
+            </div>
+
+
+            <div class="step-card">
+
+                <span>03</span>
+
+                <h3>Build Your Sentence</h3>
+
+                <p>
+                    Add recognized signs together to create
+                    meaningful communication.
+                </p>
+
+            </div>
+
+
+            <div class="step-card">
+
+                <span>04</span>
+
+                <h3>Speak It</h3>
+
+                <p>
+                    Convert your completed sentence into
+                    natural speech.
+                </p>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- ================= ABOUT ================= -->
+
+    <section class="about-section" id="about">
+
+        <div>
+
+            <div class="hero-badge">
+                ABOUT HANDLINGO
+            </div>
+
+            <h2>
+                Technology that
+                <span>connects people.</span>
+            </h2>
+
+        </div>
+
+        <p>
+            HandLingo is an AI-powered sign language communication
+            platform designed to reduce communication barriers.
+            It combines computer vision, machine learning and
+            speech technology to transform hand gestures into
+            understandable communication.
+        </p>
+
+    </section>
+
+
+    <!-- ================= FOOTER ================= -->
+
+    <footer>
+
+        <div class="logo">
+            Hand<span>Lingo</span>
+        </div>
+
+        <p>
+            AI-powered communication without barriers.
+        </p>
+
+        <span>
+            © 2026 HandLingo
+        </span>
+
+    </footer>
+
+
+    <!-- =========================================
+         HANDLINGO FEATURES MODAL
+         ========================================= -->
+
+    <div class="features-modal" id="featuresModal">
+
+        <div class="features-overlay" id="featuresOverlay"></div>
+
+        <div class="features-container">
+
+            <button class="features-close" id="featuresClose">
+                ×
+            </button>
+
+
+            <!-- =====================================
+                 FEATURES HEADER
+                 ===================================== -->
+
+            <div class="features-header">
+
+                <div class="features-badge">
+                    <span></span>
+                    HANDLINGO TOOLS
+                </div>
+
+                <h2>
+                    Explore <span>HandLingo</span>
+                </h2>
+
+                <p>
+                    Choose a gesture-powered tool and interact with your
+                    computer in a completely new way.
+                </p>
+
+            </div>
+
+
+            <!-- =====================================
+                 FEATURE 01 - VOLUME CONTROL
+                 ===================================== -->
+
+            <div class="feature-option"
+                 id="volumeControlFeature"
+                 data-feature="volume">
+
+                <div class="feature-number">
+                    01
+                </div>
+
+                <div class="feature-icon">
+                    🔊
+                </div>
+
+                <div class="feature-info">
+
+                    <h3>
+                        Gesture Volume Control
+                    </h3>
+
+                    <p>
+                        Control your computer's volume using
+                        finger distance and hand gestures.
+                    </p>
+
+                </div>
+
+                <div class="feature-arrow">
+                    →
+                </div>
+
+            </div>
+
+
+            <!-- =====================================
+                 FEATURE 02 - AIR DRAWING
+                 ===================================== -->
+
+            <div class="feature-option"
+                 data-feature="drawing">
+
+                <div class="feature-number">
+                    02
+                </div>
+
+                <div class="feature-icon">
+                    🎨
+                </div>
+
+                <div class="feature-info">
+
+                    <h3>
+                        Air Drawing
+                    </h3>
+
+                    <p>
+                        Draw in the air using your index finger
+                        and turn your hand into a virtual pen.
+                    </p>
+
+                </div>
+
+                <div class="feature-arrow">
+                    →
+                </div>
+
+            </div>
+
+
+            <!-- =====================================
+                 FEATURE 03 - PRESENTATION CONTROLLER
+                 ===================================== -->
+
+            <div class="feature-option"
+                 data-feature="presentation"
+                 id="presentationControlFeature">
+
+                <div class="feature-number">
+                    03
+                </div>
+
+                <div class="feature-icon">
+                    📊
+                </div>
+
+                <div class="feature-info">
+
+                    <h3>
+                        Presentation Controller
+                    </h3>
+
+                    <p>
+                        Control presentations using hand gestures,
+                        including next, previous, zoom and pointer.
+                    </p>
+
+                </div>
+
+                <div class="feature-arrow">
+                    →
+                </div>
+
+            </div>
+
+
+            <!-- =====================================
+                 FEATURE 05 - MEDIA CONTROLLER
+                 ===================================== -->
+
+            <!-- FEATURE 5 -->
+
+<div class="feature-option"
+     data-feature="media"
+     id="mediaControlFeature">
+
+    <div class="feature-number">
+        05
+    </div>
+
+    <div class="feature-icon">
+        🎵
+    </div>
+
+    <div class="feature-info">
+
+        <h3>Media Controller</h3>
+
+        <p>
+            Play, pause, skip and control media
+            using simple hand gestures.
+        </p>
+
+    </div>
+
+    <div class="feature-arrow">
+        →
+    </div>
+
+</div>
+
+            <!-- =====================================
+                 FEATURE 06 - SIGN LANGUAGE LEARNING
+                 ===================================== -->
+
+            <div class="feature-option"
+                 data-feature="learning">
+
+                <div class="feature-number">
+                    06
+                </div>
+
+                <div class="feature-icon">
+                    🧑‍🏫
+                </div>
+
+                <div class="feature-info">
+
+                    <h3>
+                        Sign Language Learning
+                    </h3>
+
+                    <p>
+                        Practice sign language and receive
+                        AI feedback on your gesture accuracy.
+                    </p>
+
+                </div>
+
+                <div class="feature-arrow">
+                    →
+                </div>
+
+            </div>
+
+
+            <!-- =====================================
+                 FEATURE 07 - CUSTOM GESTURES
+                 ===================================== -->
+
+            <div class="feature-option"
+                 data-feature="custom">
+
+                <div class="feature-number">
+                    07
+                </div>
+
+                <div class="feature-icon">
+                    ⚙
+                </div>
+
+                <div class="feature-info">
+
+                    <h3>
+                        Custom Gestures
+                    </h3>
+
+                    <p>
+                        Create your own gestures and assign
+                        custom actions to them.
+                    </p>
+
+                </div>
+
+                <div class="feature-arrow">
+                    →
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- =========================================
+         ABOUT HANDLINGO MODAL
+         ========================================= -->
+
+    <div class="about-modal" id="aboutModal">
+
+        <div class="about-overlay" id="aboutOverlay"></div>
+
+        <div class="about-container">
+
+            <!-- CLOSE BUTTON -->
+
+            <button class="about-close" id="aboutClose">
+                ×
+            </button>
+
+
+            <!-- =====================================
+                 HEADER
+                 ===================================== -->
+
+            <div class="about-header">
+
+                <div class="about-title">
+
+                    <div class="about-icon">
+                        i
+                    </div>
+
+                    <div>
+
+                        <h2>
+                            About <span>HandLingo</span>
+                        </h2>
+
+                        <p>
+                            AI-Powered Hand Gesture Communication & Interaction Platform
+                        </p>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- =====================================
+                 PROJECT OVERVIEW
+                 ===================================== -->
+
+            <div class="about-grid">
+
+
+                <!-- PROJECT OVERVIEW -->
+
+                <div class="about-card">
+
+                    <div class="about-card-title">
+                        <span>▣</span>
+                        PROJECT OVERVIEW
+                    </div>
+
+                    <p>
+                        HandLingo is an AI-powered hand gesture communication
+                        and interaction platform designed to make digital
+                        communication and computer interaction more accessible,
+                        intuitive and touchless.
+                    </p>
+
+                    <p>
+                        The system uses computer vision, hand tracking and
+                        machine learning to capture hand movements through
+                        a camera, detect hand landmarks and understand
+                        different gestures.
+                    </p>
+
+                    <p>
+                        Its primary function is Sign Language Translation,
+                        where recognized signs such as A, B, C, D and other
+                        gestures can be converted into text, combined into
+                        sentences and converted into speech.
+                    </p>
+
+                    <p>
+                        Beyond translation, HandLingo is designed as a
+                        multi-purpose gesture control platform that can
+                        interact with digital applications using hand
+                        movements.
+                    </p>
+
+
+                    <div class="feature-list">
+
+                        <div>✓ Real-time hand gesture recognition</div>
+
+                        <div>✓ Sign-to-text conversion</div>
+
+                        <div>✓ Intelligent sentence formation</div>
+
+                        <div>✓ Text-to-speech conversion</div>
+
+                        <div>✓ Gesture-based computer control</div>
+
+                        <div>✓ Browser-based interface</div>
+
+                        <div>✓ Touchless presentation control</div>
+
+                        <div>✓ Air drawing and gesture interaction</div>
+
+                        <div>✓ Future mobile application support</div>
+
+                    </div>
+
+                </div>
+
+
+                <!-- SUBMITTED BY -->
+
+                <div class="about-card">
+
+                    <div class="about-card-title">
+                        <span>♙</span>
+                        SUBMITTED BY
+                    </div>
+
+
+                    <div class="student">
+
+                        <div class="student-number">
+                            01
+                        </div>
+
+                        <div>
+                            <strong>Aman Kumar</strong>
+                            <small>2401020011</small>
+                        </div>
+
+                    </div>
+
+
+                    <div class="student">
+
+                        <div class="student-number">
+                            02
+                        </div>
+
+                        <div>
+                            <strong>Aishwarya Verma</strong>
+                            <small>2401020005</small>
+                        </div>
+
+                    </div>
+
+
+                    <div class="student">
+
+                        <div class="student-number">
+                            03
+                        </div>
+
+                        <div>
+                            <strong>Anant Indolia</strong>
+                            <small>2401020012</small>
+                        </div>
+
+                    </div>
+
+
+                    <div class="student">
+
+                        <div class="student-number">
+                            04
+                        </div>
+
+                        <div>
+                            <strong>Ankit Sharma</strong>
+                            <small>2401020015</small>
+                        </div>
+
+                    </div>
+
+
+                    <div class="degree-box">
+
+                        <strong>
+                            B.Tech (CSE - AI & ML)
+                        </strong>
+
+                        <span>
+                            Final Year Project
+                        </span>
+
+                    </div>
+
+                </div>
+
+
+                <!-- PROJECT DETAILS -->
+
+                <div class="about-card">
+
+                    <div class="about-card-title">
+                        <span>▤</span>
+                        PROJECT DETAILS
+                    </div>
+
+
+                    <div class="detail-row">
+                        <span>Project Title</span>
+                        <strong>HandLingo</strong>
+                    </div>
+
+                    <div class="detail-row">
+                        <span>Domain</span>
+                        <strong>Artificial Intelligence / Computer Vision</strong>
+                    </div>
+
+                    <div class="detail-row">
+                        <span>Project Type</span>
+                        <strong>Final Year B.Tech Project</strong>
+                    </div>
+
+                    <div class="detail-row">
+                        <span>Platform</span>
+                        <strong>Web / Browser Based</strong>
+                    </div>
+
+                    <div class="detail-row">
+                        <span>Programming</span>
+                        <strong>Python, JavaScript, HTML, CSS</strong>
+                    </div>
+
+                    <div class="detail-row">
+                        <span>Backend</span>
+                        <strong>Flask</strong>
+                    </div>
+
+                    <div class="detail-row">
+                        <span>Computer Vision</span>
+                        <strong>OpenCV, MediaPipe</strong>
+                    </div>
+
+                    <div class="detail-row">
+                        <span>Machine Learning</span>
+                        <strong>TensorFlow / ML Model</strong>
+                    </div>
+
+                    <div class="detail-row">
+                        <span>Speech</span>
+                        <strong>Text-to-Speech</strong>
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- =====================================
+                 HANDLINGO FEATURES
+                 ===================================== -->
+
+            <div class="about-section-block">
+
+                <div class="about-card-title">
+                    <span>✦</span>
+                    HANDLINGO FEATURES
+                </div>
+
+
+                <div class="about-feature-grid">
+
+
+                    <!-- FEATURE 01 -->
+
+                    <div class="about-feature-card">
+
+                        <div class="about-feature-number">
+                            01
+                        </div>
+
+                        <div class="about-feature-icon">
+                            🖐
+                        </div>
+
+                        <div>
+
+                            <h3>
+                                Sign Language Translator
+                            </h3>
+
+                            <p>
+                                Recognizes hand signs through the camera,
+                                converts them into text, helps build
+                                sentences and converts the final sentence
+                                into speech.
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- FEATURE 02 -->
+
+                    <div class="about-feature-card">
+
+                        <div class="about-feature-number">
+                            02
+                        </div>
+
+                        <div class="about-feature-icon">
+                            🔊
+                        </div>
+
+                        <div>
+
+                            <h3>
+                                Gesture Volume Control
+                            </h3>
+
+                            <p>
+                                Uses finger distance and hand gestures
+                                to provide an intuitive way of controlling
+                                system volume without touching physical
+                                controls.
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- FEATURE 03 -->
+
+                    <div class="about-feature-card">
+
+                        <div class="about-feature-number">
+                            03
+                        </div>
+
+                        <div class="about-feature-icon">
+                            🎨
+                        </div>
+
+                        <div>
+
+                            <h3>
+                                Air Drawing
+                            </h3>
+
+                            <p>
+                                Turns the user's index finger into a
+                                virtual drawing tool, allowing digital
+                                sketches and movements to be created
+                                through the air.
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- FEATURE 04 -->
+
+                    <div class="about-feature-card">
+
+                        <div class="about-feature-number">
+                            04
+                        </div>
+
+                        <div class="about-feature-icon">
+                            📊
+                        </div>
+
+                        <div>
+
+                            <h3>
+                                Presentation Controller
+                            </h3>
+
+                            <p>
+                                Enables touchless presentation control
+                                using hand gestures for actions such as
+                                next slide, previous slide, zoom and
+                                presentation navigation.
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- FEATURE 05 -->
+
+                    <div class="about-feature-card">
+
+                        <div class="about-feature-number">
+                            05
+                        </div>
+
+                        <div class="about-feature-icon">
+                            🖱
+                        </div>
+
+                        <div>
+
+                            <h3>
+                                Air Mouse
+                            </h3>
+
+                            <p>
+                                Allows the user to control the computer
+                                cursor using hand movements and gestures,
+                                providing a touchless mouse experience.
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- FEATURE 06 -->
+
+                    <div class="about-feature-card">
+
+                        <div class="about-feature-number">
+                            06
+                        </div>
+
+                        <div class="about-feature-icon">
+                            🎵
+                        </div>
+
+                        <div>
+
+                            <h3>
+                                Media Controller
+                            </h3>
+
+                            <p>
+                                Provides gesture-based controls for
+                                common media actions such as play,
+                                pause, next and previous.
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- FEATURE 07 -->
+
+                    <div class="about-feature-card">
+
+                        <div class="about-feature-number">
+                            07
+                        </div>
+
+                        <div class="about-feature-icon">
+                            🧑‍🏫
+                        </div>
+
+                        <div>
+
+                            <h3>
+                                Sign Language Learning
+                            </h3>
+
+                            <p>
+                                Provides an interactive environment for
+                                practicing sign language and receiving
+                                feedback based on recognized gestures
+                                and model confidence.
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- FEATURE 08 -->
+
+                    <div class="about-feature-card">
+
+                        <div class="about-feature-number">
+                            08
+                        </div>
+
+                        <div class="about-feature-icon">
+                            ⚙
+                        </div>
+
+                        <div>
+
+                            <h3>
+                                Custom Gestures
+                            </h3>
+
+                            <p>
+                                Allows users to define personalized
+                                gestures and associate them with
+                                specific actions or commands.
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+                </div>
+
+            </div>
+
+
+            <!-- =====================================
+                 TECHNOLOGIES
+                 ===================================== -->
+
+            <div class="about-section-block">
+
+                <div class="about-card-title">
+                    <span>&lt;/&gt;</span>
+                    TECHNOLOGIES USED
+                </div>
+
+
+                <div class="tech-grid">
+
+                    <div class="tech-item">
+                        <b>🐍</b>
+                        <span>Python</span>
+                    </div>
+
+                    <div class="tech-item">
+                        <b>👁</b>
+                        <span>OpenCV</span>
+                    </div>
+
+                    <div class="tech-item">
+                        <b>✋</b>
+                        <span>MediaPipe</span>
+                    </div>
+
+                    <div class="tech-item">
+                        <b>🧠</b>
+                        <span>TensorFlow</span>
+                    </div>
+
+                    <div class="tech-item">
+                        <b>⚡</b>
+                        <span>Flask</span>
+                    </div>
+
+                    <div class="tech-item">
+                        <b>🌐</b>
+                        <span>HTML5</span>
+                    </div>
+
+                    <div class="tech-item">
+                        <b>🎨</b>
+                        <span>CSS3</span>
+                    </div>
+
+                    <div class="tech-item">
+                        <b>JS</b>
+                        <span>JavaScript</span>
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- =====================================
+                 SYSTEM ARCHITECTURE
+                 ===================================== -->
+
+            <div class="about-section-block">
+
+                <div class="about-card-title">
+                    <span>⌘</span>
+                    SYSTEM ARCHITECTURE
+                </div>
+
+
+                <div class="flow-chart">
+
+                    <div class="flow-box">
+                        <div>📷</div>
+                        <span>Web Camera</span>
+                    </div>
+
+                    <div class="flow-arrow">→</div>
+
+                    <div class="flow-box">
+                        <div>🖼</div>
+                        <span>
+                            Image<br>
+                            Acquisition
+                        </span>
+                    </div>
+
+                    <div class="flow-arrow">→</div>
+
+                    <div class="flow-box">
+                        <div>✋</div>
+                        <span>
+                            Hand Detection<br>
+                            MediaPipe
+                        </span>
+                    </div>
+
+                    <div class="flow-arrow">→</div>
+
+                    <div class="flow-box">
+                        <div>🧠</div>
+                        <span>
+                            Feature Extraction<br>
+                            Landmarks
+                        </span>
+                    </div>
+
+                </div>
+
+
+                <div class="flow-chart second-flow">
+
+                    <div class="flow-box">
+                        <div>🔊</div>
+                        <span>
+                            Text-to-Speech
+                        </span>
+                    </div>
+
+                    <div class="flow-arrow">←</div>
+
+                    <div class="flow-box">
+                        <div>💬</div>
+                        <span>
+                            Sentence Builder
+                        </span>
+                    </div>
+
+                    <div class="flow-arrow">←</div>
+
+                    <div class="flow-box">
+                        <div>A</div>
+                        <span>
+                            Recognized Sign
+                        </span>
+                    </div>
+
+                    <div class="flow-arrow">←</div>
+
+                    <div class="flow-box active-flow">
+                        <div>AI</div>
+                        <span>
+                            Gesture Recognition
+                        </span>
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- =====================================
+                 GESTURE CONTROL ARCHITECTURE
+                 ===================================== -->
+
+            <div class="about-section-block">
+
+                <div class="about-card-title">
+                    <span>⌘</span>
+                    GESTURE CONTROL ARCHITECTURE
+                </div>
+
+
+                <div class="gesture-architecture">
+
+                    <div class="gesture-architecture-main">
+
+                        <div class="architecture-box main-box">
+
+                            <strong>
+                                AI HAND TRACKING ENGINE
+                            </strong>
+
+                            <span>
+                                Camera + MediaPipe + ML
+                            </span>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="architecture-arrow">
+                        ↓
+                    </div>
+
+
+                    <div class="architecture-box-row">
+
+                        <div class="architecture-box">
+                            <strong>Translator</strong>
+                            <span>Sign → Text → Speech</span>
+                        </div>
+
+                        <div class="architecture-box">
+                            <strong>Volume</strong>
+                            <span>Gesture → Volume</span>
+                        </div>
+
+                        <div class="architecture-box">
+                            <strong>Air Draw</strong>
+                            <span>Hand → Drawing</span>
+                        </div>
+
+                        <div class="architecture-box">
+                            <strong>Presentation</strong>
+                            <span>Gesture → Slide Control</span>
+                        </div>
+
+                    </div>
+
+
+                    <div class="architecture-box-row">
+
+                        <div class="architecture-box">
+                            <strong>Air Mouse</strong>
+                            <span>Hand → Cursor</span>
+                        </div>
+
+                        <div class="architecture-box">
+                            <strong>Media</strong>
+                            <span>Gesture → Media Action</span>
+                        </div>
+
+                        <div class="architecture-box">
+                            <strong>Learning</strong>
+                            <span>Gesture → Feedback</span>
+                        </div>
+
+                        <div class="architecture-box">
+                            <strong>Custom</strong>
+                            <span>Gesture → User Action</span>
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- =====================================
+                 DATA FLOW
+                 ===================================== -->
+
+            <div class="about-section-block">
+
+                <div class="about-card-title">
+                    <span>◇</span>
+                    DATA FLOW DIAGRAM
+                </div>
+
+
+                <div class="data-flow">
+
+                    <div class="data-node">
+
+                        <div>🖐️</div>
+
+                        <span>
+                            User Gesture
+                        </span>
+
+                    </div>
+
+
+                    <div class="data-arrow">
+                        →
+                    </div>
+
+
+                    <div class="data-node">
+
+                        <div>📷</div>
+
+                        <span>
+                            Camera Input
+                        </span>
+
+                    </div>
+
+
+                    <div class="data-arrow">
+                        →
+                    </div>
+
+
+                    <div class="data-node">
+
+                        <div>🧠</div>
+
+                        <span>
+                            AI Processing
+                        </span>
+
+                    </div>
+
+
+                    <div class="data-arrow">
+                        →
+                    </div>
+
+
+                    <div class="data-node">
+
+                        <div>AI</div>
+
+                        <span>
+                            Gesture Classification
+                        </span>
+
+                    </div>
+
+
+                    <div class="data-arrow">
+                        →
+                    </div>
+
+
+                    <div class="data-node">
+
+                        <div>⚡</div>
+
+                        <span>
+                            Selected Action
+                        </span>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- =====================================
+                 COMPLETE WORKFLOW
+                 ===================================== -->
+
+            <div class="about-section-block">
+
+                <div class="about-card-title">
+                    <span>◎</span>
+                    COMPLETE WORKFLOW
+                </div>
+
+
+                <div class="workflow">
+
+
+                    <!-- STEP 01 -->
+
+                    <div class="workflow-step">
+
+                        <div class="step-number">
+                            01
+                        </div>
+
+                        <div class="workflow-icon">
+                            📷
+                        </div>
+
+                        <strong>
+                            Capture
+                        </strong>
+
+                        <span>
+                            Capture hand gesture
+                            through camera
+                        </span>
+
+                    </div>
+
+
+                    <div class="workflow-line">
+                        →
+                    </div>
+
+
+                    <!-- STEP 02 -->
+
+                    <div class="workflow-step">
+
+                        <div class="step-number">
+                            02
+                        </div>
+
+                        <div class="workflow-icon">
+                            ✋
+                        </div>
+
+                        <strong>
+                            Detect
+                        </strong>
+
+                        <span>
+                            Detect hand and
+                            extract landmarks
+                        </span>
+
+                    </div>
+
+
+                    <div class="workflow-line">
+                        →
+                    </div>
+
+
+                    <!-- STEP 03 -->
+
+                    <div class="workflow-step">
+
+                        <div class="step-number">
+                            03
+                        </div>
+
+                        <div class="workflow-icon">
+                            🧠
+                        </div>
+
+                        <strong>
+                            Recognize
+                        </strong>
+
+                        <span>
+                            AI model recognizes
+                            the gesture
+                        </span>
+
+                    </div>
+
+
+                    <div class="workflow-line">
+                        →
+                    </div>
+
+
+                    <!-- STEP 04 -->
+
+                    <div class="workflow-step">
+
+                        <div class="step-number">
+                            04
+                        </div>
+
+                        <div class="workflow-icon">
+                            ⚙
+                        </div>
+
+                        <strong>
+                            Select Action
+                        </strong>
+
+                        <span>
+                            Choose the required
+                            gesture-based feature
+                        </span>
+
+                    </div>
+
+
+                    <div class="workflow-line">
+                        →
+                    </div>
+
+
+                    <!-- STEP 05 -->
+
+                    <div class="workflow-step">
+
+                        <div class="step-number">
+                            05
+                        </div>
+
+                        <div class="workflow-icon">
+                            ⚡
+                        </div>
+
+                        <strong>
+                            Execute
+                        </strong>
+
+                        <span>
+                            Perform the selected
+                            digital action
+                        </span>
+
+                    </div>
+
+
+                    <div class="workflow-line">
+                        →
+                    </div>
+
+
+                    <!-- STEP 06 -->
+
+                    <div class="workflow-step">
+
+                        <div class="step-number">
+                            06
+                        </div>
+
+                        <div class="workflow-icon">
+                            ✓
+                        </div>
+
+                        <strong>
+                            Result
+                        </strong>
+
+                        <span>
+                            Receive the desired
+                            output or interaction
+                        </span>
+
+                    </div>
+
+                </div>
+
+
+                <!-- TRANSLATOR WORKFLOW -->
+
+                <div class="workflow-subtitle">
+
+                    SIGN LANGUAGE TRANSLATION FLOW
+
+                </div>
+
+
+                <div class="workflow">
+
+                    <div class="workflow-step">
+
+                        <div class="step-number">
+                            01
+                        </div>
+
+                        <div class="workflow-icon">
+                            A
+                        </div>
+
+                        <strong>
+                            Recognize
+                        </strong>
+
+                        <span>
+                            Identify the
+                            performed sign
+                        </span>
+
+                    </div>
+
+
+                    <div class="workflow-line">
+                        →
+                    </div>
+
+
+                    <div class="workflow-step">
+
+                        <div class="step-number">
+                            02
+                        </div>
+
+                        <div class="workflow-icon">
+                            💬
+                        </div>
+
+                        <strong>
+                            Build
+                        </strong>
+
+                        <span>
+                            Add recognized signs
+                            to the sentence
+                        </span>
+
+                    </div>
+
+
+                    <div class="workflow-line">
+                        →
+                    </div>
+
+
+                    <div class="workflow-step">
+
+                        <div class="step-number">
+                            03
+                        </div>
+
+                        <div class="workflow-icon">
+                            🔊
+                        </div>
+
+                        <strong>
+                            Speak
+                        </strong>
+
+                        <span>
+                            Convert the completed
+                            sentence into speech
+                        </span>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- =====================================
+                 FUTURE VISION
+                 ===================================== -->
+
+            <div class="about-section-block">
+
+                <div class="about-card-title">
+                    <span>✦</span>
+                    FUTURE VISION
+                </div>
+
+
+                <div class="vision-content">
+
+                    <p>
+                        HandLingo is designed to grow beyond a single
+                        sign-language application into a complete
+                        AI-powered gesture interaction ecosystem.
+                    </p>
+
+                    <div class="vision-list">
+
+                        <div>
+                            <strong>01</strong>
+                            More advanced hand and body gesture recognition
+                        </div>
+
+                        <div>
+                            <strong>02</strong>
+                            Two-way communication between speech and signs
+                        </div>
+
+                        <div>
+                            <strong>03</strong>
+                            Multilingual text and speech support
+                        </div>
+
+                        <div>
+                            <strong>04</strong>
+                            Advanced presentation and desktop control
+                        </div>
+
+                        <div>
+                            <strong>05</strong>
+                            Mobile application integration
+                        </div>
+
+                        <div>
+                            <strong>06</strong>
+                            Personalized AI gesture commands
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- =====================================
+                 CONCLUSION
+                 ===================================== -->
+
+            <div class="conclusion">
+
+                <div>
+
+                    <div class="about-card-title">
+                        <span>⚑</span>
+                        CONCLUSION
+                    </div>
+
+                    <p>
+                        HandLingo aims to create an intelligent,
+                        real-time and accessible platform where
+                        hand gestures can be used for communication,
+                        learning and touchless digital interaction.
+                    </p>
+
+                    <p>
+                        By combining computer vision, machine learning,
+                        hand tracking and speech technology, the project
+                        creates a bridge between human gestures and
+                        digital actions.
+                    </p>
+
+                    <p>
+                        From translating sign language to controlling
+                        presentations, drawing digitally and interacting
+                        with a computer, HandLingo explores the potential
+                        of AI-powered gesture interfaces.
+                    </p>
+
+                </div>
+
+
+                <div class="quote">
+
+                    "Breaking the silence,
+                    <br>
+                    connecting the world."
+
+                </div>
+
+            </div>
+
+
+        </div>
+
+    </div>
+
+
+    <!-- =========================================
+         MAIN JAVASCRIPT
+         ========================================= -->
+
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+
+</body>
+
+</html>
