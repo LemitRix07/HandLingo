@@ -3,10 +3,13 @@
 ## 📸 Project Screenshots
 
 ### 1. Homepage
-![Homepage](images/first.png)
+![HandLingo Homepage](first.png)
 
 ### 2. How It Works
-![How It Works](images/second.png)
+![How HandLingo Works](second.png)
 
 ### 3. Features
-![Features](images/third.png)
+![HandLingo Features](third.png)
+
+---
+
